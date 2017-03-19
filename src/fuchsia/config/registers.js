@@ -20,13 +20,13 @@ export default [
   {
     name: "ax",
     parent: "eax",
-    architecture: "x86",
+    architecture: "x88",
     size: REG_16_BIT_SIZE,
   },
   {
     name: "al",
     parent: "ax",
-    architecture: "x86",
+    architecture: "x80",
     size: REG_8_BIT_SIZE,
   },
 /* RBX */
@@ -45,13 +45,13 @@ export default [
   {
     name: "bx",
     parent: "ebx",
-    architecture: "x86",
+    architecture: "x88",
     size: REG_16_BIT_SIZE,
   },
   {
     name: "bl",
     parent: "bx",
-    architecture: "x86",
+    architecture: "x80",
     size: REG_8_BIT_SIZE,
   },
 /* RXC */
@@ -70,13 +70,13 @@ export default [
   {
     name: "cx",
     parent: "ecx",
-    architecture: "x86",
+    architecture: "x88",
     size: REG_16_BIT_SIZE,
   },
   {
     name: "cl",
     parent: "cx",
-    architecture: "x86",
+    architecture: "x80",
     size: REG_8_BIT_SIZE,
   },
 /* RDX */
@@ -95,13 +95,13 @@ export default [
   {
     name: "dx",
     parent: "edx",
-    architecture: "x86",
+    architecture: "x88",
     size: REG_16_BIT_SIZE,
   },
   {
     name: "dl",
     parent: "dx",
-    architecture: "x86",
+    architecture: "x80",
     size: REG_8_BIT_SIZE,
   },
 /* RSI */
@@ -120,13 +120,13 @@ export default [
   {
     name: "si",
     parent: "esi",
-    architecture: "x86",
+    architecture: "x88",
     size: REG_16_BIT_SIZE,
   },
   {
     name: "sil",
     parent: "si",
-    architecture: "x86",
+    architecture: "x80",
     size: REG_8_BIT_SIZE,
   },
 /* RDI */
@@ -145,13 +145,13 @@ export default [
   {
     name: "di",
     parent: "edi",
-    architecture: "x86",
+    architecture: "x88",
     size: REG_16_BIT_SIZE,
   },
   {
     name: "dil",
     parent: "di",
-    architecture: "x86",
+    architecture: "x80",
     size: REG_8_BIT_SIZE,
   },
 /* RBP */
@@ -170,13 +170,13 @@ export default [
   {
     name: "bp",
     parent: "ebp",
-    architecture: "x86",
+    architecture: "x88",
     size: REG_16_BIT_SIZE,
   },
   {
     name: "bpl",
     parent: "bp",
-    architecture: "x86",
+    architecture: "x80",
     size: REG_8_BIT_SIZE,
   },
 /* RSP */
@@ -195,13 +195,13 @@ export default [
   {
     name: "sp",
     parent: "esp",
-    architecture: "x86",
+    architecture: "x88",
     size: REG_16_BIT_SIZE,
   },
   {
     name: "spl",
     parent: "sp",
-    architecture: "x86",
+    architecture: "x80",
     size: REG_8_BIT_SIZE,
   },
 ];
