@@ -1,0 +1,12 @@
+node_modules
+.*.swp
+.swp
+.sw
+.nyc_output
+.DS_Store
+coverage
+public/
+dist/
+lexer.js
+parser.js
+*.log

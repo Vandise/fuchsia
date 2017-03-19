@@ -1,0 +1,140 @@
+%moduleName FasmParser
+
+%left 'T_COLONEQUAL'
+%left 'T_PLUS' 'T_MINUS'
+%left 'T_MULTIPLY' 'T_DIVIDE' 'T_MODULO' 'T_CARROT'
+%left 'T_GT' 'T_GE' 'T_LT' 'T_LE'
+%left 'T_EQUAL' 'T_NOT_EQUAL'
+
+Root =
+    Expressions function(expressions) {
+      return expressions;      
+    }
+  ;
+
+Expressions = 
+    Expression function(expression) {
+      return new imports.ast.BranchNode([expression]);
+    }
+  | Expressions Terminator Expression function(expressions, _, expression) {
+      expressions.pushNode(expression);
+      return expressions;
+    }
+  | Expressions Terminator function(expressions, _) {
+      return expressions;
+    }
+  ;
+
+Expression =
+    Literal
+  | Call
+  | Maths
+  | Conditionals
+  | SetLocal
+  | GetLocal
+  | If
+  | Until
+  | 'T_OPEN_PAREN' Expression 'T_CLOSE_PAREN' function(o, expression, c) {
+      return expression;
+    }
+  ;
+
+Conditionals =
+    Expression 'T_GT' Expression function(val1, op, val2) {
+      return new imports.ast.ConditionNode(val1, op, val2);
+    }
+  | Expression 'T_GE' Expression function(val1, op, val2) {
+      return new imports.ast.ConditionNode(val1, op, val2);
+    }
+  | Expression 'T_LT' Expression function(val1, op, val2) {
+      return new imports.ast.ConditionNode(val1, op, val2);
+    }
+  | Expression 'T_LE' Expression function(val1, op, val2) {
+      return new imports.ast.ConditionNode(val1, op, val2);
+    }
+  | Expression 'T_EQUAL' Expression function(val1, op, val2) {
+      return new imports.ast.ConditionNode(val1, op, val2);
+    }
+  | Expression 'T_NOT_EQUAL' Expression function(val1, op, val2) {
+      return new imports.ast.ConditionNode(val1, op, val2);
+    }
+  ;
+
+Maths =
+    Expression 'T_PLUS' Expression function(val1, op, val2) {
+      return new imports.ast.OperatorNode(val1, op, val2);
+    }
+  | Expression 'T_MINUS' Expression function(val1, op, val2) {
+      return new imports.ast.OperatorNode(val1, op, val2);
+    }
+  | Expression 'T_MULTIPLY' Expression function(val1, op, val2) {
+      return new imports.ast.OperatorNode(val1, op, val2);
+    }
+  | Expression 'T_DIVIDE' Expression function(val1, op, val2) {
+      return new imports.ast.OperatorNode(val1, op, val2);
+    }
+  | Expression 'T_MODULO' Expression function(val1, op, val2) {
+      return new imports.ast.OperatorNode(val1, op, val2);
+    }
+  | Expression 'T_CARROT' Expression function(val1, op, val2) {
+      return new imports.ast.OperatorNode(val1, op, val2);
+    }
+  ;
+
+Literal =
+    'T_STRING' function(string) {
+      return new imports.ast.LiteralNode(string);
+    }
+  | 'T_INTEGER' function(integer) {
+      return new imports.ast.LiteralNode(integer);
+    }
+  ;
+
+SetLocal =
+    'T_IDENTIFIER' 'T_COLONEQUAL' Expression function(variable, _, expression) {
+      return new imports.ast.AssignmentNode(variable, expression);
+    }
+  ;
+
+GetLocal =
+    'T_IDENTIFIER' function(local) {
+      return new imports.ast.GetLocalNode(local);
+    }
+  ;
+
+Until =
+    'T_UNTIL' Expression 'T_DO' Terminator
+      Expressions
+    'T_END' function(_a, condition, _do, _term, expressions, _end){
+              return new imports.ast.UntilNode(expressions, condition);
+            }
+  ;
+
+If =
+    'T_IF' Expression Terminator
+      Expressions
+    'T_END' function(tif, conditional, term, body, _) {
+      return new imports.ast.IfNode(conditional, body);
+    }
+  ;
+
+Call =
+    'T_IDENTIFIER' 'T_OPEN_PAREN' Arguments 'T_CLOSE_PAREN' function(name, p1, args, p2) {
+      return new imports.ast.CallNode(name, args);
+    }
+  ;
+
+Arguments =
+    Expression function(expression) {
+      return [expression];
+    }
+  | Arguments 'T_COMMA' Expression function(args, _, expression) {
+      args.push(expression);
+      return args;
+    }
+  | function(){ return []; }
+  ;
+
+Terminator =
+    'T_TERMINATOR'
+  ;
